@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: palevioletred;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: var(--color);
+            --color: #00ffff;
+            transition: 0.3s;
+        }
+
+        .box {
+            width: 100%;
+            /* height: 250px; */
+            /* border: 2px solid red ; */
+            margin-top: 50px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: verdana;
+            padding: 40px;
+            background-color: #fff;
+            max-width: 600px;
+            text-align: center;
+            display: flex;
+            /* margin: 30px; */
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        button {
+            border: none;
+            margin: 0px;
+            padding: 20px 30px;
+            margin: auto;
+            font-family: verdana;
+            font-size: 20px;
+            background: var(--color);
+            font-size: 20px;
+            color: white;
+
+        }
+        .box i{
+            font-size: 3rem;
+        
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <i class="fa-solid fa-quote-left"></i>
+        <h1>
+            
+            <span class="quote"></span>
+            <!-- <span class="author">Author</span> -->
+        </h1>
+        <p> <em class="author">Author</em></p>
+        <!-- <button onclick="btnClick()">click</button> -->
+        <button onclick="btnClick()">New Quote</button>
+    </div>
+
+    <script>
+        fetch('https://type.fit/api/quotes').then(res => res.json()).then(data => myList(data))
+
+        let quoteList;
+        function myList(list) {
+            quoteList = list;
+            filter(list)
+        }
+        //<------------------- Hex code
+
+        const randomHexColorCode = () => {
+            let n = (Math.random() * 0xfffff * 1000000).toString(16);
+            return '#' + n.slice(0, 6);
+        };
+
+
+        function filter(list) {
+
+            const random = Math.floor(Math.random() * 11)
+            const text = list[random].text;
+            const auther = list[random].author
+            const span = document.querySelector('span')
+            const au = document.querySelector('em')
+            span.innerText = text;
+            au.innerText = auther;
+            document.body.style.setProperty('--color', randomHexColorCode());
+        }
+
+
+        function btnClick() {
+            filter(quoteList)
+
+        }
+
+
+
+    </script>
+
+    
+</body>
+
+</html>
